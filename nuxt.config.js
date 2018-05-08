@@ -20,7 +20,9 @@ module.exports = {
   },
   css: [
     'vuetify/src/stylus/app.styl',
-    'vuetify/src/stylus/main.styl'
+    'vuetify/src/stylus/main.styl',
+    '~/assets/style/styles.css',
+    '~/assets/style/animate.css'
   ],
   plugins: [
     '~/plugins/vuetify.js'
@@ -47,7 +49,7 @@ module.exports = {
       }
     },
     vendor: [
-      'vuetify'
+      'vuetify',
     ]
   },
 

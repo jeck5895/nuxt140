@@ -13,6 +13,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "css-loader": "^0.28.11",
     "nuxt": "^1.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

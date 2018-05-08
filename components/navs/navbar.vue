@@ -1,6 +1,5 @@
 <template>
     <v-toolbar fixed dark color="blue">
-        <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
         <v-toolbar-title class="white--text">
             <img src="https://jobfair-online.net/assets/images/app/jfo_logo_white.png" alt="">
         </v-toolbar-title>
@@ -12,15 +11,15 @@
             <v-btn @click="goTo($event, '#partners')" class="navbar-link navbar-link-partners" flat>PARTNERS</v-btn>
             <v-btn @click="goTo($event, '#about-us')" class="navbar-link navbar-link-about" flat>ABOUT US</v-btn>
             <v-btn @click="goTo($event, '#contact-us')" class="navbar-link navbar-link-contact" flat>CONTACT US</v-btn>
-            <v-btn class="navbar-link" flat>SIGN-UP</v-btn>
+            <v-menu offset-y min-width="150" left>
+              <v-btn slot="activator" class="navbar-link" flat>SIGN-UP</v-btn>
+              <v-list>
+                <v-list-tile v-for="(item, i) in signup_items" :key="i" @click="navigateTo(item.link)">
+                  <v-list-tile-title v-text="item.label"></v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
             <v-btn to="/login" nuxt class="navbar-link" flat>SIGN-IN</v-btn>
-            <!-- <v-btn href="#home" class="navbar-link" flat>HOME</v-btn>
-            <v-btn class="navbar-link" flat>SEARCH JOBS</v-btn>
-            <v-btn href="#partners" class="navbar-link" flat>PARTNERS</v-btn>
-            <v-btn href="#about-us" class="navbar-link" flat>ABOUT US</v-btn>
-            <v-btn href="#contact-us" class="navbar-link" flat>CONTACT US</v-btn>
-            <v-btn class="navbar-link" flat>SIGN-UP</v-btn>
-            <v-btn class="navbar-link" flat>SIGN-IN</v-btn> -->
         </v-toolbar-items>
         <v-toolbar-items class="hidden-sm hidden-md-and-up">
             <v-btn ref="homelink" @click="$vuetify.goTo('#home', options)" icon>
@@ -73,7 +72,16 @@
     export default {
         data() {
             return {
-
+              signup_items: [
+                {
+                  label: 'Jobseekers',
+                  link: '/signup/jobseekers'
+                },
+                {
+                  label: 'Employers',
+                  link: '/signup/employers'
+                }
+              ]
             }
         },
         computed: {
@@ -100,6 +108,9 @@
                 this.$vuetify.goTo(target, this.options)
                 this.$store.commit('clearPrevEl');
                 this.$store.commit('setPrevEl', e.target.offsetParent);//this.prevEl = e;
+            },
+            navigateTo(link) {
+              window.location = window.location.protocol + "//" + window.location.host + link;
             }
         }
     }

@@ -18,6 +18,8 @@
     "nuxt": "^1.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
+    "vee-validate": "^2.0.9",
+    "vue-ckeditor2": "^2.0.1",
     "vuetify": "^1.0.17"
   },
   "devDependencies": {

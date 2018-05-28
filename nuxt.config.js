@@ -22,8 +22,10 @@ module.exports = {
         src: 'https://use.fontawesome.com/releases/v5.0.10/js/all.js',
         integrity: 'sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+',
         crossorigin: 'anonymous'
+      },
+      {
+        src: '/ckeditor/ckeditor.js'
       }
-
     ]
   },
   css: [
@@ -33,8 +35,8 @@ module.exports = {
     '~/assets/style/animate.css'
   ],
   plugins: [
-    '~/plugins/vuetify.js',
-    // '~/plugins/axios.js'
+    '~/plugins/vuetify.js'
+
   ],
   /*
   ** Customize the progress bar color

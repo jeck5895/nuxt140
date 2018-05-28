@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md class="main-container">
     <v-layout row wrap justify-center>
-      <v-flex xs12 md4>
+      <v-flex xs12 sm6 md4>
         <!-- <v-card class="pa-5"> -->
           <v-flex xs12>
           <!-- <div class="img-center logo">

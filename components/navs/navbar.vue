@@ -12,14 +12,14 @@
         class="navbar-link navbar-link-home"
         flat>HOME
       </v-btn>
-      <v-btn class="navbar-link" nuxt to="/jobs" flat>SEARCH JOBS</v-btn>
+      <v-btn active-class="btn--active active-link" class="navbar-link" nuxt to="/jobs" flat>SEARCH JOBS</v-btn>
       <v-btn v-if="routePath == '/'" @click="goTo($event, '#partners')" class="navbar-link navbar-link-partners" flat>PARTNERS</v-btn>
       <v-btn v-if="routePath == '/'" @click="goTo($event, '#about-us')" class="navbar-link navbar-link-about" flat>ABOUT US</v-btn>
       <v-btn v-if="routePath == '/'" @click="goTo($event, '#contact-us')" class="navbar-link navbar-link-contact" flat>CONTACT US</v-btn>
       <v-menu offset-y min-width="150" left>
         <v-btn slot="activator" class="navbar-link" flat>SIGN-UP</v-btn>
         <v-list>
-          <v-list-tile v-for="(item, i) in signup_items" :key="i" @click="navigateTo(item.link)">
+          <v-list-tile v-for="(item, i) in signup_items" :key="i" :to="item.link" nuxt>
             <v-list-tile-title v-text="item.label"></v-list-tile-title>
           </v-list-tile>
         </v-list>

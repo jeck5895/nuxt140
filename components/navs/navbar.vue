@@ -70,11 +70,11 @@
         routePath: this.$route.path,
         signup_items: [{
             label: 'Jobseekers',
-            link: '/signup/jobseekers'
+            link: '/jobseekers/signup'
           },
           {
             label: 'Employers',
-            link: '/signup/employers'
+            link: '/employers/signup'
           }
         ]
       }

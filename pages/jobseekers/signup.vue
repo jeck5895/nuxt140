@@ -8,6 +8,17 @@
           </v-flex>
           <form data-vv-scope="jobseekerForm">
             <v-layout row wrap>
+              <v-flex xs12 v-if="server_errors.data">
+                <v-alert :value="true" type="error">
+                  <!-- <ul>
+                    <template v-if="server_errors.data.errors.first_name">
+                      <li v-for="(e, i) in server_errors.data.errors.first_name" :key="i">
+                        {{ e }}
+                      </li>
+                    </template>
+                  </ul> -->
+                </v-alert>
+              </v-flex>
               <v-flex xs12 md6 class="mb-3">
                 <v-text-field
                   v-model="jobseeker.first_name"
@@ -31,16 +42,33 @@
                   label="Last name"></v-text-field>
               </v-flex>
 
+              <v-flex xs12 class="mb-3">
+                <!-- <vue-tel-input
+                  v-model="jobseeker.phonenumber"
+                  @onInput="onInput"></vue-tel-input> -->
+                <v-text-field
+                  v-model="jobseeker.phonenumber"
+                  data-vv-name="phonenumber"
+                  data-vv-as="Phone number"
+                  v-validate="'required'"
+                  :error-messages="errors.collect('phonenumber')"
+                  solo
+                  mask="phone"
+                  name="phonenumber"
+                  label="Phone number"></v-text-field>
+              </v-flex>
+
               <v-flex xs12 md12 class="mb-3">
                 <v-text-field
                   v-model="jobseeker.username"
                   data-vv-name="username"
-                  data-vv-as="Username"
-                  v-validate="'required'"
+                  data-vv-as="Email"
+                  v-validate="'required|email'"
                   :error-messages="errors.collect('username')"
                   solo
+                  type="email"
                   name="username"
-                  label="Username"></v-text-field>
+                  label="Email"></v-text-field>
               </v-flex>
               <v-flex xs12 md12 class="mb-3">
                 <v-text-field
@@ -57,13 +85,14 @@
 
               <v-flex xs12 md12 class="mb-3">
                 <v-text-field
+                  v-model="jobseeker.confirm_password"
                   data-vv-name="confirm_password"
                   data-vv-as="Confirm Password"
                   v-validate="'required|confirmed:password'"
                   :error-messages="errors.collect('confirm_password')"
                   solo
                   type="password"
-                  name="password"
+                  name="confirm_password"
                   label="Confirm Password"></v-text-field>
               </v-flex>
 
@@ -97,7 +126,7 @@
               </v-flex>
               <v-flex xs12 md12>
                 <p class="terms-policy mb-0 text-sm-center text-md-center">
-                  By Logging in, You agree to Jobfair-online.net's <nuxt-link to="">Terms of Service</nuxt-link>, <nuxt-link to="">Privacy Policy</nuxt-link>, and Content Policies
+                  By clicking the Sign-up, You agree to Jobfair-online.net's <nuxt-link to="">Terms of Service</nuxt-link>, <nuxt-link to="">Privacy Policy</nuxt-link>, and Content Policies
                 </p>
               </v-flex>
               <v-flex xs12 md12>
@@ -105,17 +134,24 @@
                   @click.prevent="submit('jobseekerForm')"
                   block
                   color="success"
-                  >Sign up</v-btn>
+                  :disabled="isLoading ? true: false"
+                  >
+                    <span v-if="!isLoading">Sign up</span>
+                    <span v-if="isLoading" class="ml-2">
+                      <i class="fa fa-spinner fa-spin fa-2x"></i>
+                    </span>
+                  </v-btn>
               </v-flex>
             </v-layout>
           </form>
-        <!-- </v-card> -->
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   // fetch ({store, params}) {
   //   store.dispatch('loadJobCategories');
@@ -127,7 +163,8 @@ export default {
   },
   data() {
     return {
-
+      server_errors: [],
+      isLoading: false
     }
   },
   computed: {
@@ -148,20 +185,66 @@ export default {
           let jobseeker = {
             first_name: this.jobseeker.first_name,
             last_name: this.jobseeker.last_name,
-            username: this.jobseeker.username,
+            phonenumber: this.jobseeker.phonenumber,
+            email: this.jobseeker.username,
             password: this.jobseeker.password,
+            confirm_password: this.jobseeker.confirm_password,
             job_category: this.jobseeker.job_category,
             location: this.jobseeker.location
           };
+          this.isLoading = true;
+          return new Promise((resolve, reject) => {
+            axios.post('http://localhost:3221/api/jobseekers/sign-up', jobseeker)
+            .then(res => {
+              resolve(res);
+              this.isLoading = false;
+              console.log(res);
+            })
+            .catch(err => {
+              reject(err)
+              this.server_errors = err;
+              this.isLoading = false;
+              console.log(err);
+            });
+          });
 
           console.log(jobseeker)
         }
       });
-    }
+    },
+    onInput({ number, isValid, country }) {
+       console.log(number, isValid, country);
+     }
   }
 }
 </script>
 
 <style>
+  .vue-tel-input .input-group {
+    padding-top: 0;
+  }
 
+  .vue-tel-input .btn {
+    height: 100% !important;
+    margin-top:0;
+    margin-right:1px;
+    border:none;
+    background-color:#fff !important;
+    border-radius:2px;
+  }
+
+  .vue-tel-input input {
+    padding: 8px 16px !important;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-family: 'Roboto','san-serif' !important;
+  }
+
+  .vue-tel-input input.is-valid {
+    border-color:transparent;
+    -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    -webkit-box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+  }
 </style>

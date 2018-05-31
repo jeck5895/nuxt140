@@ -6,7 +6,7 @@ module.exports = {
   */
 
   head: {
-    title: 'nuxt140',
+    title: 'Jobfair-online',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -36,7 +36,6 @@ module.exports = {
   ],
   plugins: [
     '~/plugins/vuetify.js'
-
   ],
   /*
   ** Customize the progress bar color

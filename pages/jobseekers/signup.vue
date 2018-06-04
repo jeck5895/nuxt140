@@ -8,15 +8,33 @@
           </v-flex>
           <form data-vv-scope="jobseekerForm">
             <v-layout row wrap>
-              <v-flex xs12 v-if="server_errors.data">
+              <v-flex xs12 v-if="errs.data && errs.status == 422">
                 <v-alert :value="true" type="error">
-                  <!-- <ul>
-                    <template v-if="server_errors.data.errors.first_name">
-                      <li v-for="(e, i) in server_errors.data.errors.first_name" :key="i">
+                  <ul>
+                    <template v-if="errs.data.errors.first_name">
+                      <li v-for="(e, i) in errs.data.errors.first_name" :key="i">
                         {{ e }}
                       </li>
                     </template>
-                  </ul> -->
+
+                    <template v-if="errs.data.errors.last_name">
+                      <li v-for="(e, i) in errs.data.errors.last_name" :key="i">
+                        {{ e }}
+                      </li>
+                    </template>
+
+                    <template v-if="errs.data.errors.phonenumber">
+                      <li v-for="(e, i) in errs.data.errors.phonenumber" :key="i">
+                        {{ e }}
+                      </li>
+                    </template>
+
+                    <template v-if="errs.data.errors.email">
+                      <li v-for="(e, i) in errs.data.errors.email" :key="i">
+                        {{ e }}
+                      </li>
+                    </template>
+                  </ul>
                 </v-alert>
               </v-flex>
               <v-flex xs12 md6 class="mb-3">
@@ -153,6 +171,7 @@
 import axios from 'axios'
 
 export default {
+  middleware: 'auth',
   // fetch ({store, params}) {
   //   store.dispatch('loadJobCategories');
   //   console.log(params);
@@ -163,7 +182,7 @@ export default {
   },
   data() {
     return {
-      server_errors: [],
+      errs: [],
       isLoading: false
     }
   },
@@ -198,16 +217,16 @@ export default {
             .then(res => {
               resolve(res);
               this.isLoading = false;
+              this.$store.dispatch('clearJobseeker')
               console.log(res);
             })
             .catch(err => {
               reject(err)
-              this.server_errors = err;
+              this.errs = err.response;
               this.isLoading = false;
-              console.log(err);
+              console.log(err.response);
             });
           });
-
           console.log(jobseeker)
         }
       });

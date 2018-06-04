@@ -18,6 +18,9 @@ export default {
     }
   },
   mutations: {
+    clearJobseeker: state => {
+      state.jobseeker = {};
+    },
     clearJobseekers: state => {
       state.jobseekers = [];
     },
@@ -32,6 +35,9 @@ export default {
     }
   },
   actions: {
+    clearJobseeker: ({commit}) => {
+      commit('clearJobseeker');
+    },
     loadJobseekers: ({commit}, payload) => {
       commit('clearJobseekers')
       return new Promise((resolve, reject) => {

@@ -60,7 +60,20 @@ module.exports = {
     },
     vendor: [
       'vuetify','axios'
-    ]
+    ],
+    modules: [
+        '@nuxtjs/axios',
+        '@nuxtjs/auth'
+      ],
+
+      auth: {
+        // Options
+        // login: '/login',
+        // logout: '/',
+        // callback: '/login',
+        // user: '/'
+
+      }
   },
 
 }

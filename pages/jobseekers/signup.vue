@@ -179,6 +179,7 @@ export default {
   created() {
     this.$store.dispatch('loadJobCategories');
     this.$store.dispatch('loadLocations');
+    console.log(process)
   },
   data() {
     return {

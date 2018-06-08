@@ -1,10 +1,13 @@
-// import Vuetify from "vuetify";
+
+require('dotenv').config()
 
 module.exports = {
   /*
   ** Headers of the page
   */
-
+  env: {
+    API_KEY: process.env.API_KEY
+  },
   head: {
     title: 'Jobfair-online',
     meta: [
@@ -62,18 +65,9 @@ module.exports = {
       'vuetify','axios'
     ],
     modules: [
-        '@nuxtjs/axios',
-        '@nuxtjs/auth'
-      ],
-
-      auth: {
-        // Options
-        // login: '/login',
-        // logout: '/',
-        // callback: '/login',
-        // user: '/'
-
-      }
+      '@nuxtjs/dotenv',
+      '@nuxtjs/pwa'
+    ],
   },
 
 }

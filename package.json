@@ -1,7 +1,7 @@
 {
-  "name": "nuxt140",
+  "name": "jobfair-online.net",
   "version": "1.0.0",
-  "description": "sample nuxt app",
+  "description": "JobFair-Online.Net is an online portal for companies to post their job vacancies where Filipinos can apply anywhere in the Philippines.",
   "author": "Jerick Labasan <jeck.labasan@gmail.com>",
   "private": true,
   "scripts": {
@@ -15,8 +15,11 @@
   "dependencies": {
     "@nuxtjs/dotenv": "^1.1.1",
     "@nuxtjs/pwa": "^2.0.8",
+    "ajv": "^6.0.0",
     "axios": "^0.18.0",
+    "ckeditor": "^4.9.2",
     "css-loader": "^0.28.11",
+    "jquery": "^3.3.1",
     "nuxt": "^1.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

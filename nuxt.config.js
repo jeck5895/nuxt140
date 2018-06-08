@@ -60,14 +60,15 @@ module.exports = {
       //     exclude: /(node_modules)/
       //   })
       // }
-    },
-    vendor: [
-      'vuetify','axios'
-    ],
-    modules: [
-      '@nuxtjs/dotenv',
-      '@nuxtjs/pwa'
-    ],
+    }
   },
+  
+  vendor: [
+    'vuetify', 'axios'
+  ],
+  modules: [
+    '@nuxtjs/pwa',
+    '@nuxtjs/dotenv'
+  ],
 
 }

@@ -60,12 +60,8 @@ module.exports = {
       //     exclude: /(node_modules)/
       //   })
       // }
-    }
+    },
   },
-  
-  vendor: [
-    'vuetify', 'axios'
-  ],
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv'
